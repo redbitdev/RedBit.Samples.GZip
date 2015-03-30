@@ -36,6 +36,13 @@ namespace SharpGIS.Http
         public HttpGZipContent(Stream deflatedStream)
         {
             m_stream = new System.IO.Compression.GZipStream(deflatedStream, System.IO.Compression.CompressionMode.Decompress);
+            Xamarin.Forms.Device.OnPlatform(Default: () =>
+            {
+                this.Headers.ContentLength = m_stream.BaseStream.Length;
+            }, WinPhone: () =>
+            {
+                // no-op since on windows phone TryComputLength is called
+            });
         }
         protected override Task SerializeToStreamAsync(System.IO.Stream stream, System.Net.TransportContext context)
         {
