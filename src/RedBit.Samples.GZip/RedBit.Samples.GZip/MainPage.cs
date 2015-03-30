@@ -34,7 +34,7 @@ namespace RedBit.Samples.GZip
                     {
                     }
                 },
-                Padding = new Thickness(0, 0, 0, 0),
+                Padding = new Thickness(0, Device.OnPlatform(25,0,0), 0, 0),
             };
             (setting.Children[1] as Switch).Toggled += (o, e) =>
             {
