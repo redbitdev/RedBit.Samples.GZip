@@ -136,7 +136,9 @@ namespace RedBit.Samples.GZip
 
         private void Log(string data)
         {
-            _lblLog.Text = string.Format("{0}: {1}\r\n{2}", DateTime.Now.ToString("ddd hh:mm:ss:fff"), data, _lblLog.Text);
+            var newText = string.Format("{0}: {1}", DateTime.Now.ToString("ddd hh:mm:ss:fff"), data);
+            _lblLog.Text = string.Format("{0}\r\n{1}", newText, _lblLog.Text);
+            System.Diagnostics.Debug.WriteLine(newText);
         }
 
         private void Log(string data, params object[] items)
