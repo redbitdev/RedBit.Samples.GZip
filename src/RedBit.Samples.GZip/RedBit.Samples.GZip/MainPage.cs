@@ -79,7 +79,7 @@ namespace RedBit.Samples.GZip
             this.Content = content;
         }
 
-        private string _url = "http://www.windowsphone.com/en-us";
+        private string _url = "http://en.wikipedia.org/wiki/Gzip";
         private async void MakeRequest()
         {
             var response = default(HttpResponseMessage);
@@ -131,7 +131,10 @@ namespace RedBit.Samples.GZip
 
         private HttpClient CreateHttpClient()
         {
-            return new HttpClient();
+            if (_useGzip)
+                return new HttpClient(new SharpGIS.Http.HttpGZipClientHandler(), true);
+            else
+                return new HttpClient();
         }
 
         private void Log(string data)
