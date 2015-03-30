@@ -12,8 +12,36 @@ namespace RedBit.Samples.GZip
     {
         Button _btnRequest;
         Label _lblLog;
+        bool _useGzip;
+
         public MainPage()
         {
+            // create the switch
+            var setting = new StackLayout
+            {
+                Orientation = StackOrientation.Horizontal,
+                Children =
+                {
+                    new Label 
+                    {
+                        Text = "Enable GZip",
+                        FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Label)),
+                        FontFamily = "Segoe WP Light",
+                        HorizontalOptions = LayoutOptions.StartAndExpand,
+                        VerticalOptions = LayoutOptions.Center,
+                    },
+                    new Switch
+                    {
+                    }
+                },
+                Padding = new Thickness(0, 0, 0, 0),
+            };
+            (setting.Children[1] as Switch).Toggled += (o, e) =>
+            {
+                _useGzip = e.Value;
+            };
+
+
             // create the log label
             _lblLog = new Label
             {
@@ -31,11 +59,12 @@ namespace RedBit.Samples.GZip
             _btnRequest.Clicked += (s, e) => MakeRequest(); ;
 
             // create the content view
-            var content =  new StackLayout
+            var content = new StackLayout
             {
                 VerticalOptions = LayoutOptions.StartAndExpand,
                 Children = 
                 {
+                    setting,
                     _btnRequest,
                     new ScrollView
                     {
